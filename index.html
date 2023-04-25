@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./examples/js/jquery.min.js"></script>
+    <script src="./examples/js/three.min.js"></script>
+    <script src="./build/gio.min.js"></script>
+    <link rel="stylesheet" href="./examples/css/common.css">
+    <style>
+
+        #globalArea {
+
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            position: relative;
+
+        }
+
+        #countryArea {
+            position: absolute;
+            display: none;
+            top: 10%;
+            left: 45%;
+            z-index: 999999;
+            background: rgb(204, 204, 204, 0.6);
+            padding: 10px;
+            border: 1px solid #fff;
+            border-radius: 15px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="countryArea"></div>
+<div id="globalArea"></div>
+<script>
+    // // 获得用来来承载您的IO地球的容器
+    // var container = document.getElementById( "globalArea" );
+
+    // // 创建Gio控制器
+    // var controller = new GIO.Controller( container );
+
+    // var data = [{"e":"CN","i":"PG","v":2935070},{"e":"CN","i":"PE","v":2935070},{"e":"PE","i":"PG","v":2935070},{"e":"PE","i":"NL","v":6408452},{"e":"PE","i":"TO","v":1912811},{"e":"PE","i":"AE","v":6119993},{"e":"PE","i":"GG","v":6793973},{"e":"BF","i":"UG","v":7672134},{"e":"BF","i":"HR","v":5690279},{"e":"BF","i":"CN","v":1069550},{"e":"BF","i":"PY","v":667732},{"e":"BF","i":"LT","v":1469193},{"e":"BF","i":"SB","v":4240389},{"e":"BF","i":"IS","v":2743953},{"e":"BF","i":"IN","v":5220844},{"e":"BF","i":"MV","v":1816543},{"e":"BF","i":"ZM","v":3438115},{"e":"BF","i":"PN","v":3802433},{"e":"BF","i":"AM","v":1491657},{"e":"FR","i":"BG","v":1159615},{"e":"FR","i":"PR","v":7468378},{"e":"FR","i":"SD","v":210974},{"e":"FR","i":"KP","v":7829956},{"e":"FR","i":"SH","v":3559675},{"e":"FR","i":"IE","v":2282346},{"e":"FR","i":"AD","v":7504218}];
+    // // 添加数据
+    // controller.addData( data );
+
+    // // 初始化并渲染地球
+    // controller.init();
+
+    // Get the container to hold the IO globe
+var container = document.getElementById( "globalArea" );
+var configs = {
+	"control": {
+		"stats": false,
+		"disableUnmentioned": false,
+		"lightenMentioned": true,
+		"inOnly": false,
+		"outOnly": false,
+		"initCountry": "CN",
+		"halo": true,
+		"transparentBackground": false,
+		"autoRotation": false,
+		"rotationRatio": 1
+	},
+	"color": {
+		"surface": 10376531,
+		"selected": 1949423,
+		"in": 16733499,
+		"out": 1949423,
+		"halo": 16760187,
+		"background": 196920
+	},
+	"brightness": {
+		"ocean": 0.47,
+		"mentioned": 0.19,
+		"related": 1
+	}
+}
+// Create Gio.controller
+var controller = new GIO.Controller( container, configs);
+// Add data
+var data = [
+{'e': 'NL', 'i': 'GB', 'v': 538},
+{'e': 'GB', 'i': 'NL', 'v': 524},
+{'e': 'GB', 'i': 'DE', 'v': 365},
+{'e': 'DE', 'i': 'GB', 'v': 360},
+{'e': 'LK', 'i': 'AE', 'v': 351},
+{'e': 'NL', 'i': 'GB', 'v': 348},
+{'e': 'GB', 'i': 'NL', 'v': 346},
+{'e': 'DE', 'i': 'GB', 'v': 343},
+{'e': 'GB', 'i': 'DE', 'v': 326},
+{'e': 'IE', 'i': 'GB', 'v': 307},
+{'e': 'GB', 'i': 'IE', 'v': 304},
+{'e': 'DE', 'i': 'GB', 'v': 297},
+{'e': 'DE', 'i': 'GB', 'v': 271},
+{'e': 'GB', 'i': 'DE', 'v': 264},
+{'e': 'GB', 'i': 'DE', 'v': 258},
+{'e': 'GB', 'i': 'GB', 'v': 250},
+{'e': 'SE', 'i': 'GB', 'v': 247},
+{'e': 'GB', 'i': 'NL', 'v': 234},
+{'e': 'GB', 'i': 'SE', 'v': 234},
+{'e': 'GB', 'i': 'IE', 'v': 222},
+{'e': 'GB', 'i': 'GB', 'v': 221},
+{'e': 'NL', 'i': 'GB', 'v': 214},
+{'e': 'AE', 'i': 'GB', 'v': 212},
+{'e': 'CN', 'i': 'CN', 'v': 209},
+{'e': 'IE', 'i': 'CN', 'v': 208},
+{'e': 'DE', 'i': 'CN', 'v': 208},
+{'e': 'CN', 'i': 'CN', 'v': 205},
+{'e': 'CN', 'i': 'CN', 'v': 204},
+{'e': 'CN', 'i': 'CN', 'v': 203},
+{'e': 'FR', 'i': 'CN', 'v': 193},
+{'e': 'CN', 'i': 'ES', 'v': 191},
+{'e': 'FI', 'i': 'CN', 'v': 190},
+{'e': 'CN', 'i': 'CH', 'v': 188},
+{'e': 'CN', 'i': 'GB', 'v': 188},
+{'e': 'CH', 'i': 'GB', 'v': 188},
+{'e': 'ES', 'i': 'GB', 'v': 187},
+{'e': 'BE', 'i': 'GB', 'v': 187},
+{'e': 'GB', 'i': 'AE', 'v': 185},
+{'e': 'GB', 'i': 'GB', 'v': 184},
+{'e': 'GB', 'i': 'FI', 'v': 183},
+{'e': 'FR', 'i': 'GB', 'v': 180},
+{'e': 'GB', 'i': 'FR', 'v': 179},
+{'e': 'SE', 'i': 'GB', 'v': 172},
+{'e': 'BE', 'i': 'GB', 'v': 171},
+{'e': 'GB', 'i': 'IT', 'v': 171},
+{'e': 'LK', 'i': 'QA', 'v': 171},
+{'e': 'IE', 'i': 'GB', 'v': 169},
+{'e': 'IE', 'i': 'GB', 'v': 168},
+{'e': 'DK', 'i': 'GB', 'v': 168},
+{'e': 'GB', 'i': 'DK', 'v': 168},
+{'e': 'AE', 'i': 'EG', 'v': 167},
+{'e': 'GB', 'i': 'BE', 'v': 164},
+{'e': 'GB', 'i': 'DE', 'v': 164},
+{'e': 'GB', 'i': 'FR', 'v': 163},
+{'e': 'GB', 'i': 'CN', 'v': 163},
+{'e': 'BE', 'i': 'CN', 'v': 162},
+{'e': 'CN', 'i': 'GB', 'v': 161},
+{'e': 'GB', 'i': 'BE', 'v': 160},
+]
+controller.addData( data );
+// Initialize and render the globe
+controller.init();
+//Clear data
+//controller.clearData();
+// controller.setSurfaceColor("#FF0000");
+// controller.setStyle("lemonGate");
+// controller.setSelectedColor("#FF0000");
+// controller.setExportColor("#FEF504");
+// controller.setImportColor("#00FF00");
+// controller.setHaloColor("#FF0000");
+// controller.adjustOceanBrightness(0.9);
+// controller.adjustRelatedBrightness(0.8);
+// controller.lightenMentioned(true);
+// controller.adjustMentionedBrightness(0.8);
+// controller.lightenMentioned(false);
+// controller.enableStats();
+
+
+// use getStatsObject API to get the reference after initialized
+// statsObject = controller.getStatsObject();
+
+// change the panel's position to top-right
+// statsObject.dom.style.left = null;
+// statsObject.dom.style.right = 0;
+// controller.setSurfaceColor( "#00FF00" )
+//         .setSelectedColor( "#FF0000" )
+//         .disableUnmentioned( true );
+// use the onCountryPicked() to set callback when clicked country changed
+controller.onCountryPicked( callback );
+
+// defined a callback function, as a demo, this function simply output selectedCountry, relatedCountries which are passed parameters into console
+function callback ( selectedCountry ) {
+    console.log('selectedCountry >>>', selectedCountry)
+    $( "#countryArea" ).css('display', 'block');
+    $( "#countryArea" ).text( selectedCountry.name + " picked!" );
+    $( "#infoBoard" ).fadeIn( 1000 );
+    setTimeout( function () {
+        $( "#infoBoard" ).fadeOut( 1000 );
+    }, 3000 );
+}
+
+
+</script>
+</body>
+</html>

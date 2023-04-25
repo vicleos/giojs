@@ -1575,6 +1575,12 @@ function EarthSurfaceShader ( controller ) {
 
         uniforms.selectedColor = { type: 'v3', value: selectedColor };
 
+        // 默认为不透明
+        uniforms.opacity = { type: 'f', value: 1.0 };
+
+        // 设置为灰色背景
+        uniforms.backgroundColor = { type: 'v3', value: new THREE.Vector3(0.5, 0.5, 0.5) };
+
         return uniforms;
 
     }
@@ -1667,6 +1673,8 @@ function EarthSurfaceShader ( controller ) {
             "uniform vec3 surfaceColor;",
             "uniform float flag;",
             "uniform vec3 selectedColor;",
+            "uniform float opacity;",
+            "uniform vec3 backgroundColor;",
 
             "void main() {",
                 "vec4 mapColor = texture2D( mapIndex, vUv );",
@@ -1687,7 +1695,11 @@ function EarthSurfaceShader ( controller ) {
                     "earthColor = selectedColor * diffuse;",
                 "}",
 
-                "gl_FragColor = vec4( earthColor, 1.  );",
+                "if (earthColor.r == 0.0 && earthColor.g == 0.0 && earthColor.b == 0.0) {",
+                    "earthColor = backgroundColor;",
+                "}",
+
+                "gl_FragColor = vec4( earthColor, 0.5  );",
 
             "}"
 
@@ -2243,6 +2255,8 @@ var ObjectUtils = ( function () {
 
         var earthSurfaceShader = new EarthSurfaceShader( controller );
 
+        earthSurfaceShader.uniforms.opacity = 0.5;
+
         var shaderMaterial = new THREE.ShaderMaterial( {
 
             uniforms: earthSurfaceShader.uniforms,
@@ -2473,7 +2487,7 @@ var ObjectUtils = ( function () {
         var splineOutline = new THREE.Line( linesGeo, new THREE.LineBasicMaterial( {
 
             color: 0xffffff,
-            opacity: 1.0,
+            opacity: 0.5,
             blending: THREE.AdditiveBlending,
             transparent: true,
             depthWrite: false,

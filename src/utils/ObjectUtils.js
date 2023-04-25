@@ -118,6 +118,8 @@ var ObjectUtils = ( function () {
 
         var earthSurfaceShader = new EarthSurfaceShader( controller );
 
+        earthSurfaceShader.uniforms.opacity = 0.5;
+
         var shaderMaterial = new THREE.ShaderMaterial( {
 
             uniforms: earthSurfaceShader.uniforms,
@@ -348,7 +350,7 @@ var ObjectUtils = ( function () {
         var splineOutline = new THREE.Line( linesGeo, new THREE.LineBasicMaterial( {
 
             color: 0xffffff,
-            opacity: 1.0,
+            opacity: 0.5,
             blending: THREE.AdditiveBlending,
             transparent: true,
             depthWrite: false,
